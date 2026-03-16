@@ -10,10 +10,11 @@ interface UnlockPremiumProps {
   dob: string;
   type: string;
   preview?: React.ReactNode;
+  unlockedPreview?: React.ReactNode;
   children: React.ReactNode;
 }
 
-export function UnlockPremium({ name, dob, type, preview, children }: UnlockPremiumProps) {
+export function UnlockPremium({ name, dob, type, preview, unlockedPreview, children }: UnlockPremiumProps) {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [passcode, setPasscode] = useState('');
   const [error, setError] = useState('');
@@ -39,6 +40,11 @@ export function UnlockPremium({ name, dob, type, preview, children }: UnlockPrem
           <Unlock size={20} />
           <span>Nội dung Premium đã được mở khóa thành công!</span>
         </div>
+        {unlockedPreview && (
+          <div className="mb-8">
+            {unlockedPreview}
+          </div>
+        )}
         {children}
       </motion.div>
     );
@@ -62,9 +68,9 @@ export function UnlockPremium({ name, dob, type, preview, children }: UnlockPrem
       </div>
 
       {/* Unlock Form (Inline, not popup) */}
-      <div className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-indigo-100 max-w-2xl mx-auto">
+      <div className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-orange-100 max-w-2xl mx-auto">
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0">
+          <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center shrink-0">
             <Lock size={24} />
           </div>
           <div>
@@ -79,14 +85,14 @@ export function UnlockPremium({ name, dob, type, preview, children }: UnlockPrem
           <input
             type="text"
             placeholder="Nhập mã mở khóa (VD: A1B2C3)"
-            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all uppercase font-mono tracking-widest text-lg"
+            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all uppercase font-mono tracking-widest text-lg"
             value={passcode}
             onChange={(e) => setPasscode(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleUnlock()}
           />
           <button
             onClick={handleUnlock}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shrink-0"
+            className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shrink-0"
           >
             <KeyRound size={18} />
             Mở khóa

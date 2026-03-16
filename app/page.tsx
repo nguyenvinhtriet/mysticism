@@ -43,7 +43,7 @@ export default function Home() {
     {
       title: "Các phương pháp phổ biến",
       items: [
-        { name: "Thần Số Học", path: "/numerology", icon: Calculator, color: "bg-indigo-600", hover: "hover:bg-indigo-700", shadow: "shadow-indigo-200" },
+        { name: "Thần Số Học", path: "/numerology", icon: Calculator, color: "bg-orange-600", hover: "hover:bg-orange-700", shadow: "shadow-orange-200" },
         { name: "Cung Hoàng Đạo", path: "/zodiac", icon: MoonStar, color: "bg-purple-600", hover: "hover:bg-purple-700", shadow: "shadow-purple-200" },
         { name: "Tarot & Oracle", path: "/tarot", icon: BookOpen, color: "bg-rose-600", hover: "hover:bg-rose-700", shadow: "shadow-rose-200" },
       ]
@@ -58,7 +58,7 @@ export default function Home() {
         className="bg-white rounded-3xl shadow-xl p-8 max-w-2xl w-full mb-8"
       >
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 rotate-3">
+          <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 rotate-3">
             <Sparkles size={32} />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Khám Phá Bản Thân</h1>
@@ -73,7 +73,7 @@ export default function Home() {
               value={name}
               onChange={handleNameChange}
               placeholder="VD: Nguyễn Văn A"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
             />
           </div>
           <div>
@@ -82,39 +82,41 @@ export default function Home() {
               type="date"
               value={dob}
               onChange={handleDobChange}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
             />
           </div>
         </div>
       </motion.div>
 
-      <div className="max-w-4xl w-full space-y-8">
-        {categories.map((category, idx) => (
-          <motion.div 
-            key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 * (idx + 1) }}
-          >
-            <h2 className="text-xl font-bold text-slate-800 mb-4 px-2">{category.title}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {category.items.map((item, itemIdx) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={itemIdx}
-                    onClick={() => handleNavigate(item.path)}
-                    className={`w-full ${item.color} ${item.hover} text-white font-semibold py-4 px-4 rounded-2xl transition-all flex flex-col items-center justify-center gap-3 shadow-md ${item.shadow} hover:-translate-y-1`}
-                  >
-                    <Icon size={28} />
-                    <span className="text-center">{item.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      {name && dob && (
+        <div className="max-w-4xl w-full space-y-8">
+          {categories.map((category, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * (idx + 1) }}
+            >
+              <h2 className="text-xl font-bold text-slate-800 mb-4 px-2">{category.title}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {category.items.map((item, itemIdx) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={itemIdx}
+                      onClick={() => handleNavigate(item.path)}
+                      className={`w-full ${item.color} ${item.hover} text-white font-semibold py-4 px-4 rounded-2xl transition-all flex flex-col items-center justify-center gap-3 shadow-md ${item.shadow} hover:-translate-y-1`}
+                    >
+                      <Icon size={28} />
+                      <span className="text-center">{item.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
