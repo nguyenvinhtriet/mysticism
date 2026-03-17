@@ -1,6 +1,8 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
+  basePath: process.env.GITHUB_ACTIONS ? '/mysticism' : '',
+  assetPrefix: process.env.GITHUB_ACTIONS ? '/mysticism/' : '',
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
@@ -10,6 +12,7 @@ const nextConfig: NextConfig = {
   },
   // Allow access to remote image placeholder.
   images: {
+    unoptimized: process.env.GITHUB_ACTIONS ? true : false, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,7 +22,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  output: 'standalone',
+  output: process.env.GITHUB_ACTIONS ? 'export' : 'standalone',
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
